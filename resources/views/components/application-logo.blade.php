@@ -1,0 +1,1 @@
+<img src="{{ URL::to('/')}}/user/images/logo-login.png" alt="">
