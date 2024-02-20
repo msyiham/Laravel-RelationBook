@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AspectController;
 use App\Http\Controllers\ClassRoomController;
 use App\Http\Controllers\ConnectPointController;
 use App\Http\Controllers\DashboardAdminController;
@@ -55,9 +56,17 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(fu
         Route::get('/edit/{school}', [InformationController::class, 'edit'])->name('edit');
     });
 
+    Route::prefix('aspect')->name('admin.aspect.')->group(function () {
+        //Route::get('/', [AspectController::class, 'index'])->name('index');
+        Route::get('/create', [AspectController::class, 'create'])->name('create');
+        Route::post('/store', [AspectController::class, 'store'])->name('store');
+        Route::post('/update/{aspect}', [AspectController::class, 'update'])->name('update');
+        Route::get('/destroy/{aspect}', [AspectController::class, 'destroy'])->name('destroy');
+        Route::get('/edit/{aspect}', [AspectController::class, 'edit'])->name('edit');
+    });
     Route::prefix('indicator')->name('admin.indicator.')->group(function () {
         Route::get('/', [IndicatorController::class, 'index'])->name('index');
-        Route::get('/create', [IndicatorController::class, 'create'])->name('create');
+        Route::get('/create/{aspect_id}', [IndicatorController::class, 'create'])->name('create');
         Route::post('/store', [IndicatorController::class, 'store'])->name('store');
         Route::post('/update/{indicator}', [IndicatorController::class, 'update'])->name('update');
         Route::get('/destroy/{indicator}', [IndicatorController::class, 'destroy'])->name('destroy');
@@ -81,6 +90,8 @@ Route::prefix('teacher')->middleware(['auth', 'verified', 'role:teacher'])->grou
     Route::get('/', [InformationController::class, 'show'])->name('teacher.dashboard');
     Route::get('/list-name-evaluations', [EvaluationController::class, 'listName'])->name('evaluations.listName');
     Route::get('/input-evaluation/{user}', [EvaluationController::class, 'create'])->name('evaluations.create');
+    Route::put('/update-evaluation/{id}', [EvaluationController::class, 'update'])->name('evaluations.update');
+    Route::get('/edit-evaluation/{id}', [EvaluationController::class, 'edit'])->name('evaluations.edit');
     Route::post('/save-evaluations', [EvaluationController::class, 'store'])->name('evaluations.store');
     Route::get('/evaluations', [EvaluationController::class, 'showListName'])->name('evaluations.showListName');
     Route::get('/show-evaluation/{user}', [EvaluationController::class, 'showEvaluationAt'])->name('evaluations.showEvaluationAt');
@@ -89,9 +100,7 @@ Route::prefix('teacher')->middleware(['auth', 'verified', 'role:teacher'])->grou
     Route::get('/list-name', [ConnectPointController::class, 'listName'])->name('connectPoint.listName');
     Route::get('/input-point/{user}', [ConnectPointController::class, 'create'])->name('connectPoint.create');
     Route::post('/save-point', [ConnectPointController::class, 'store'])->name('connectPoint.store');
-    Route::get('/list-month', [ConnectPointController::class, 'showAllMonths'])->name('teacher.listMonth');
-    Route::get('/list-month/{month}', [ConnectPointController::class, 'showByMonth'])->name('teacher.listDate');
-    Route::get('/list-name/{date}', [ConnectPointController::class, 'showNamesByDate'])->name('teacher.listName');
+    Route::get('/date/{user_id}', [ConnectPointController::class, 'showConnectPointsByUserId'])->name('teacher.connectPointDate');
     Route::get('/detail-point/{id}', [ConnectPointController::class, 'showConnectPoint'])->name('teacher.detailPoint');
     Route::get('/tandai-dibaca/{commentId}', [ConnectPointController::class, 'tandaiDibaca'])->name('comment.tandai-dibaca.guru');
 });
@@ -116,6 +125,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/delete-user', [ProfileController::class, 'destroyByAdmin'])->name('profile.destroyByAdmin');
 });
 
 require __DIR__.'/auth.php';

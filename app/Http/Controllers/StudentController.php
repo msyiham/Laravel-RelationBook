@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aspect;
 use App\Models\ClassRoom;
 use App\Models\Comment;
 use App\Models\ConnectPoint;
@@ -35,10 +36,8 @@ class StudentController extends Controller
         $user = Auth::user();
         
         // Mendapatkan ConnectPoint terakhir sesuai dengan user_id
-        $connectPoint = ConnectPoint::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->first();
-    
+        $connectPoint = ConnectPoint::where('user_id', $user->id)->get();
+        //dd($connectPoint);
         // Menggunakan first() karena kita ingin mendapatkan satu instance dari ClassRoom
         $class = ClassRoom::where('id', $user->class_id)->first();
         $information = Information::all();
@@ -90,12 +89,14 @@ class StudentController extends Controller
     public function showConnectPoint($connectPointId)
     {
         $connectPoint = ConnectPoint::findOrFail($connectPointId);
+        $aspects = Aspect::all();
         $points = Point::where('connect_id', $connectPointId)->get();
         $user = User::findOrFail($connectPoint->user_id);
         $indicators = Indicator::whereIn('id', $points->pluck('number'))->get();
-        $comment = Comment::where('connect_id', $connectPointId)->get();
         //dd($indicators);
-        return view('user.student.show.detail', compact('connectPoint', 'points', 'indicators', 'user', 'comment'));
+        $comment = Comment::where('connect_id', $connectPointId)->get();
+        $evaluation = Evaluation::where('connect_point_id', $connectPointId)->get();
+        return view('user.student.show.detail', compact('evaluation','aspects','connectPoint', 'points', 'indicators', 'user', 'comment'));
     }
     public function simpanTanggapan(Request $request)
     {

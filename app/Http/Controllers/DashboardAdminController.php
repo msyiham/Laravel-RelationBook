@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\School;
 use App\Models\ClassRoom;
+use App\Models\Information;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -12,6 +13,7 @@ class DashboardAdminController extends Controller
 {
     public function index()
     {
+        $information = Information::all();
         // Menghitung total user
         $totalUsers = User::count();
 
@@ -29,6 +31,7 @@ class DashboardAdminController extends Controller
 
         // Mengirimkan data ke view
         return view('admin.pages.dashboard', [
+            'information' => $information,
             'totalUsers' => $totalUsers,
             'teachersCount' => $teachersCount,
             'studentsCount' => $studentsCount,

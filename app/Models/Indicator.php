@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Indicator extends Model
 {
     use HasFactory;
-    protected $fillable = ['question'];
+    protected $fillable = ['question', 'aspect_id'];
+    public function aspect()
+    {
+        return $this->belongsTo(Aspect::class);
+    }
 }

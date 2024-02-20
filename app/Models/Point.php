@@ -9,4 +9,8 @@ class Point extends Model
 {
     use HasFactory;
     protected $fillable = ['connect_id', 'status', 'number'];
+    public function indicator()
+    {
+        return $this->belongsTo(Indicator::class, 'number', 'id');
+    }
 }

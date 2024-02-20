@@ -6,6 +6,8 @@ use App\Models\Evaluation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class EvaluationController extends Controller
@@ -109,17 +111,59 @@ class EvaluationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Evaluation $evaluation)
+    public function edit($id)
     {
-        //
+        $evaluation = Evaluation::findOrFail($id);
+        $user = User::findOrFail($evaluation->user_id);
+        return view('user.teacher.evaluation.edit', compact('evaluation', 'user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Evaluation $evaluation)
+    public function update(Request $request, $evaluation)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'narasi' => 'required',
+            'date' => 'required',
+            'capaian' => 'required',
+            'file' => 'nullable|mimes:jpg|png|',
+        ], [
+            'required' => ':attribute wajib diisi.',
+            'mimes' => 'wajib gambar',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect(route('evaluations.edit', $evaluation))->withErrors($validator)->withInput();
+        }
+        try {
+            $evaluations = Evaluation::findOrFail($evaluation);
+    
+            if ($request->hasFile('photo')) {
+                // Delete the old file
+                Storage::disk('public')->delete($evaluations->photo);
+            
+                // Upload the new file
+                $userId = $request->user_id;
+                $date = $request->date;
+                $photoName = "{$userId}_{$date}." . $request->photo->getClientOriginalExtension();
+                $request->photo->storeAs('photos', $photoName, 'public');
+                $evaluations->photo = $photoName;
+            }
+            
+    
+            // Update other fields
+            $evaluations->narasi = $request->narasi;
+            $evaluations->date = $request->date;
+            $evaluations->capaian = $request->capaian;
+            $evaluations->save();
+    
+            return redirect()->route('evaluations.showListName')->with('success', 'Informasi berhasil diperbarui.');
+        } catch (\Exception $e) {
+            // Handle any exceptions that might occur during file upload or database save
+            dd($e);
+            return redirect()->route('evaluations.edit', $evaluation)->with('error', 'Terjadi kesalahan: '.$e->getMessage())->withInput();
+        }
     }
 
     /**

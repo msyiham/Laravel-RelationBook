@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Information;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -66,8 +68,17 @@ class InformationController extends Controller
      */
     public function show(Information $information)
     {
+        $teacher = Auth::user();
+
+        // Mendapatkan daftar siswa dengan class_id yang sama dengan guru
+        $students = User::where('class_id', $teacher->class_id)
+                        ->whereHas('roles', function ($query) {
+                            $query->where('name', 'student');
+                        })
+                        ->get();
+
         $information = Information::all();
-        return view('user.teacher.dashboard', compact('information'));
+        return view('user.teacher.dashboard', compact('information', 'students'));
     }
 
     /**

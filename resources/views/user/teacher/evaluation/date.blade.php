@@ -21,14 +21,19 @@
                         <tr>
                             <td>{{ \Carbon\Carbon::parse($item->date)->translatedFormat('d F Y') }}</td>
                             <td>
-                                <img src="/storage/photos/{{$item->photo}}" alt="gambar tidak muncul" srcset="" height="100">
+                                <img src="/laravel2/storage/app/public/photo{{$item->photo}}" alt="gambar tidak muncul" srcset="" height="100">
                             </td>
                             <td>
+                                <button type="button" class="btn btn-warning waves-effect waves-light">
+                                    <a href={{ route('evaluations.edit', $item->id) }}>
+                                        <i class="fas fa-edit text-white"></i>
+                                    </a>
+                                </button>                           
                                 <button type="button" class="btn btn-info waves-effect waves-light">
-                                    <a href={{ route('evaluations.detail', $item->id) }}>
+                                    <a class="text-white" href={{ route('evaluations.detail', $item->id) }} >
                                         Detail
                                     </a>
-                                </button>                             
+                                </button>                           
                             </td>
                         </tr>
                         @endforeach

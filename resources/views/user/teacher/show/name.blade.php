@@ -30,7 +30,7 @@
                                     <a href={{ route('teacher.detailPoint', $item->id) }}>
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                </button>                             
+                                </button>                       
                             </td>
                         </tr>
                         @endforeach

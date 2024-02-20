@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                © 2024 by Pengembang
+                <a href="https://github.com/msyiham">© 2024 by @github.com/msyiham</a>
             </div>
         </div>
     </div>

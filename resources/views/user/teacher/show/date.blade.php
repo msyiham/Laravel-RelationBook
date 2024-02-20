@@ -6,9 +6,6 @@
 <div class="row">
     <div class="col-lg-12 col-sm-12">
         <div class="card">
-            <div class="mt-2 ml-2">
-                <h4>Bulan :{{ \Carbon\Carbon::parse($month)->translatedFormat('F') }}</h4>
-            </div>
             <div class="card-body table-responsive">
                 <div class="">
                     <table id="datatable2" class="table">
@@ -23,10 +20,10 @@
                         @foreach($connectPoints as $key => $connectPoint)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ \Carbon\Carbon::parse($connectPoint->date)->translatedFormat('l, d-m-Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($connectPoint->date)->translatedFormat('l, d-M-Y') }}</td>
                             <td>
                                 <button type="button" class="btn btn-info waves-effect waves-light">
-                                    <a href={{ route('teacher.listName', ['date' => \Carbon\Carbon::parse($connectPoint->date)->toDateString()]) }}>
+                                    <a class="text-white" href={{ route('teacher.detailPoint', $connectPoint->id) }}>
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </button>                             

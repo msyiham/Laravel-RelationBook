@@ -21,6 +21,11 @@
         <link href="{{ URL::to('/') }}/css/icons.css" rel="stylesheet" type="text/css">
         <link href="{{ URL::to('/') }}/css/style.css" rel="stylesheet" type="text/css">
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+        <!-- DataTables -->
+        <link href="{{ URL::to('/') }}/user/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ URL::to('/') }}/user/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     </head>
 
 
@@ -78,7 +83,7 @@
                             <li>
                                 <a href={{route('admin.indicator.index')}} class="waves-effect">
                                     <i class="fas fa-book"></i>
-                                    <span>Indikator</span>
+                                    <span>Aspek Evaluasi</span>
                                 </a>
                             </li>
                             <li>
@@ -217,11 +222,15 @@
         </script>
         <!-- Datatable init js -->
         <script src="{{ URL::to('/') }}/pages/datatables.init.js"></script> 
-
         <script>
             $(document).ready(function() {
                 $('#datatable2').DataTable();  
             } );
+        </script>
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script>
+            new DataTable('table.display');
         </script>
     </body>
 </html>

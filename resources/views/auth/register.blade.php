@@ -38,10 +38,17 @@
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            <div class="relative">
+                <x-text-input class="block mt-1 w-full pr-10"
+                                type="password"
+                                name="password"
+                                required autocomplete="new-password" />
+
+                <button type="button" class="absolute inset-y-0 right-0 px-4 py-1" onclick="togglePasswordVisibility(this)">
+                    <i class="fas fa-eye" data-target="password"></i>
+                    <i class="fas fa-eye-slash" data-target="password" style="display: none;"></i>
+                </button>
+            </div>
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -50,12 +57,51 @@
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+            <div class="relative">
+                <x-text-input class="block mt-1 w-full pr-10"
+                                type="password"
+                                name="password_confirmation"
+                                required autocomplete="new-password" />
+
+                <button type="button" class="absolute inset-y-0 right-0 px-4 py-1" onclick="togglePasswordVisibility(this)">
+                    <i class="fas fa-eye" data-target="password_confirmation"></i>
+                    <i class="fas fa-eye-slash" data-target="password_confirmation" style="display: none;"></i>
+                </button>
+            </div>
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
+        <style>
+            .relative {
+                display: flex;
+            }
+        
+            .absolute {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        </style>
+        <script>
+            function togglePasswordVisibility(button) {
+                var passwordInput = button.previousElementSibling;
+                var toggleIconOpen = button.querySelector('.fa-eye');
+                var toggleIconClosed = button.querySelector('.fa-eye-slash');
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    toggleIconOpen.style.display = 'none';
+                    toggleIconClosed.style.display = 'inline-block';
+                } else {
+                    passwordInput.type = "password";
+                    toggleIconOpen.style.display = 'inline-block';
+                    toggleIconClosed.style.display = 'none';
+                }
+            }
+        </script>
+
+
+
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">

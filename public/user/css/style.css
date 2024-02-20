@@ -41,6 +41,15 @@ File: Main Css File
 /* ==============
   General
 ===================*/
+.mt-desktop {
+  margin-top: 5rem; /* Sesuaikan dengan jarak yang diinginkan */
+}
+@media only screen and (min-width: 768px) {
+  .mt-desktop {
+      margin-top: 3rem; /* Sesuaikan dengan jarak yang diinginkan */
+  }
+}
+
 body {
   background: #eff3f6;
   font-family: "Work Sans", sans-serif;
@@ -1399,8 +1408,8 @@ code {
 }
 
 .page-item.active .page-link {
-  background-color: #242c6d;
-  border-color: #242c6d;
+  background-color: #29c26e;
+  border-color: #16a034;
 }
 
 .page-link:focus, .page-link:hover {
@@ -2581,10 +2590,32 @@ body {
 }
 
 #topnav .navbar-custom {
-  background-color: #00E2A3 ;
+  background-color: #00E2A3;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   padding-left: 0;
+  height: 100px; /* Tinggi default */
+}
+
+/* Media query untuk layar dengan lebar maksimum 768px */
+@media screen and (max-width: 768px) {
+  #topnav .navbar-custom {
+    height: 20px; /* Tinggi responsif untuk layar kecil */
+  }
+}
+
+/* Media query untuk layar dengan lebar maksimum 992px */
+@media screen and (max-width: 992px) {
+  #topnav .navbar-custom {
+    height: 50px; /* Tinggi responsif untuk layar sedang */
+  }
+}
+
+/* Media query untuk layar dengan lebar lebih besar dari 992px */
+@media screen and (min-width: 993px) {
+  #topnav .navbar-custom {
+    height: 80px; /* Tinggi responsif untuk layar besar */
+  }
 }
 
 #topnav .navbar-toggle {
@@ -3091,6 +3122,7 @@ body {
   font-family: "Work Sans", sans-serif;
   font-size: inherit;
   padding: 20px 0;
+  background-color: #ffffff;
 }
 
 .header-title {

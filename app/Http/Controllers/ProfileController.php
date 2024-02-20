@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,7 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        //dd("hm");
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
@@ -56,5 +58,16 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+    public function destroyByAdmin(Request $request)
+    {
+        //dd($request);
+        
+        $user = User::where('id', $request->user_id);
+
+        //Auth::logout();
+        
+        $user->delete();
+        return redirect()->back();
     }
 }

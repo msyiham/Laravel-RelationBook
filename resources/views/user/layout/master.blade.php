@@ -16,43 +16,32 @@
     <link href="{{ URL::to('/') }}/user/css/icons.css" rel="stylesheet" type="text/css">
     <link href="{{ URL::to('/') }}/user/css/style.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+
+    <!-- DataTables -->
+    <link href="{{ URL::to('/') }}/user/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::to('/') }}/user/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="{{ URL::to('/') }}/user/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     @include('user.layout.header')
-    <div class="wrapper">
+    <div class="wrapper mt-2">
         <div class="container-fluid">
-            @if(request()->is('student') || request()->is('teacher'))
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="page-title-box">
-                            <div class="btn-group pull-right">
-                                <ol class="breadcrumb hide-phone p-0 m-0">
-                                    <li class="breadcrumb-item"><a></li>
-                                    <li class="breadcrumb-item"><a></li>
-                                </ol>
-                            </div>
-                            <h4 class="page-title"></h4>
+            <div class="row mt-5">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="btn-group pull-right">
+                            <ol class="breadcrumb hide-phone p-0 m-0">
+                                <li class="breadcrumb-item"><a href="#">@yield('role')</a></li>
+                                <li class="breadcrumb-item active">@yield('page title')</li>
+                            </ol>
                         </div>
+                        <h4 class="page-title">@yield('page title')</h4>
                     </div>
                 </div>
-            @else
-                <!-- Page-Title -->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="page-title-box">
-                            <div class="btn-group pull-right">
-                                <ol class="breadcrumb hide-phone p-0 m-0">
-                                    <li class="breadcrumb-item"><a>@yield('role')</a></li>
-                                    <li class="breadcrumb-item"><a>@yield('page title')</a></li>
-                                </ol>
-                            </div>
-                            <h4 class="page-title">@yield('page title')</h4>
-                        </div>
-                    </div>
-                </div>
-                <!-- end page title end breadcrumb -->
-            @endif
+            </div>
             @yield('content')
+            
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->

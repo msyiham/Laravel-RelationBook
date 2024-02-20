@@ -23,7 +23,7 @@
                             <td>{{ $key + 1 }}</td>
                             <td>{{ \Carbon\Carbon::parse($item->date)->translatedFormat('d F Y') }}</td>
                             <td>
-                                <img src="/storage/photos/{{$item->photo}}" alt="gambar tidak muncul" srcset="" height="100">
+                                <img src="/laravel2/storage/app/public/photo/{{$item->photo}}" alt="gambar tidak muncul" srcset="" height="100">
                             </td>
                             <td>
                                 <button type="button" class="btn btn-info waves-effect waves-light">

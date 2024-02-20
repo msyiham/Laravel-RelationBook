@@ -7,11 +7,11 @@
             <div class="btn-group float-right">
                 <ol class="breadcrumb hide-phone p-0 m-0">
                     <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                    <li class="breadcrumb-item"><a href="#">Indikator</a></li>
+                    <li class="breadcrumb-item"><a href="#">Aspek</a></li>
                     <li class="breadcrumb-item"><a href="#">Create</a></li>
                 </ol>
             </div>
-            <h4 class="page-title">Tambah Indikator</h4>
+            <h4 class="page-title">Tambah Aspek</h4>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -20,16 +20,14 @@
     <div class="col-lg-12 col-sm-12">
         <div class="card">
             <div class="card-body">
-                <h5>aspek: {{$aspect->name}}</h5>
-                <form action={{ route('admin.indicator.store') }} method="POST" enctype="multipart/form-data">
+                <form action={{ route('admin.aspect.store') }} method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label" for="name">Pertanyaan Indikator</label>
+                        <label for="example-text-input" class="col-sm-2 col-form-label" for="name">Nama Aspek</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" placeholder="Isi Pertanyaan" id="example-text-input" name="question">
-                            <input class="form-control" type="hidden" placeholder="Isi Pertanyaan" value={{$aspect->id}} id="example-text-input" name="aspect_id">
+                            <input class="form-control" type="text" placeholder="Isi nama aspek" id="example-text-input" name="name">
                         </div>
-                        @error('question')
+                        @error('name')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                         <button type="submit" name="save" class="btn btn-outline-info waves-effect waves-light mx-auto mt-2">Tambahkan</button>

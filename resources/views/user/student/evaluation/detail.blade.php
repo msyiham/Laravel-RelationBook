@@ -44,7 +44,7 @@
 
                 <h4 class="mt-0 header-title">Gambar</h4>
                 <div class="">
-                    <img src="/storage/photos/{{$evaluation->photo}}" class="img-fluid" alt="Responsive image">
+                    <img src="/laravel2/storage/app/public/photo/{{$evaluation->photo}}" class="img-fluid" alt="Responsive image">
                 </div>
             </div>
         </div>

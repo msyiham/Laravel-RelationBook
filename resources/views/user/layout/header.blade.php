@@ -13,7 +13,7 @@
                 <!--</a>-->
                 <!-- Image Logo -->
                 <a href="#" class="logo">
-                    <img src="{{ URL::to('/') }}/user/images/relation.png" alt="" class="logo-large">
+                    <img src="{{ URL::to('/') }}/images/logo.png" alt="" class="logo-large" height="50 dvh">
                 </a>
             </div>
             <!-- End Logo container-->
@@ -48,17 +48,6 @@
                         </div>
                     </li>
                     @endauth
-                    <li class="menu-item list-inline-item">
-                        <!-- Mobile menu toggle-->
-                        <a class="navbar-toggle nav-link">
-                            <div class="lines">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </a>
-                        <!-- End mobile menu toggle-->
-                    </li>
 
                 </ul>
                 
@@ -76,56 +65,7 @@
         <div class="container-fluid">
             <div id="navigation">
                 <!-- Navigation Menu-->
-                <ul class="navigation-menu text-center">
-                    @auth
-                        @role('teacher')
-                        <ul class="navigation-menu text-center">
-                            <li class="has-submenu ">
-                                <a href="/teacher"><i class="mdi mdi-home"></i>Dashboard</a>
-                            </li>
-                            <li class="has-submenu ">
-                                <a href="/teacher/list-name"><i class="mdi mdi-table-edit"></i>Input Nilai</a>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="/teacher/list-month"><i class="mdi mdi-book-multiple"></i>Rekap Penilaian</a>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="/teacher/list-name-evaluations"><i class="mdi mdi-rename-box"></i>Input Evaluasi</a>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="/teacher/evaluations"><i class="mdi mdi-book-multiple"></i>Rekap Evaluasi</a>
-                            </li>
-                        </ul>
-                        @else
-                            @role('student')
-                                <ul class="navigation-menu text-center">
-                                    <li class="has-submenu">
-                                        <a href="/student"><i class="mdi mdi-home"></i>Dashboard</a>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href="/student/list-month"><i class="mdi mdi-table-edit"></i>Penilaian</a>
-                                    </li>
-                                    <li class="has-submenu">
-                                        <a href={{route('student.showEvaluation')}}><i class="mdi mdi-book-multiple"></i>Evaluasi</a>
-                                    </li>
-                                </ul>
-                            @else
-                                <ul class="navigation-menu text-center">
-                                </ul>
-                            @endrole
-                        @endrole
-                    @else
-                    <ul class="navigation-menu text-center">
-                        <li class="has-submenu">
-                            <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Login</a>
-                        </li>
-                
-                        <li class="has-submenu">
-                            <a href="{{ route('register') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Daftar</a>
-                        </li>
-                    </ul>
-                    @endauth
-                </ul>
+
                 <!-- End navigation menu -->
             </div> <!-- end #navigation -->
         </div> <!-- end container -->

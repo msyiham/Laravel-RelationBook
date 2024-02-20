@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('indicators', function (Blueprint $table) {
+        Schema::create('aspects', function (Blueprint $table) {
             $table->id();
-            $table->string('question');
-            $table->unsignedBigInteger('aspect_id'); // New foreign key column
+            $table->string('name');
             $table->timestamps();
-
-            // Foreign key constraint
-            $table->foreign('aspect_id')->references('id')->on('aspects')->onDelete('cascade');
         });
     }
 
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('indicators');
+        Schema::dropIfExists('aspects');
     }
 };

@@ -7,6 +7,7 @@
     <div class="col-lg-12 col-sm-12">
         <div class="card">
             <div class="card-body table-responsive">
+                <h5>Daftar Nama Siswa</h5>
                 <div class="">
                     <table id="datatable2" class="table">
                         <thead>
@@ -23,8 +24,8 @@
                             <td>{{$item->name}}</td>
                             <td>
                                 <button type="button" class="btn btn-warning waves-effect waves-light">
-                                    <a href={{ url('teacher/input-point/'.$item->id) }}>
-                                        Masukkan Nilai <i class="fas fa-edit"></i>
+                                    <a class="text-white" href={{ url('teacher/input-point/'.$item->id) }} >
+                                        Evaluasi
                                     </a>
                                 </button>                            
                             </td>
