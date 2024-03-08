@@ -8,6 +8,7 @@
         <title>{{ config('app.name', 'Relation') }}</title>
 
         <!-- Fonts -->
+        <link rel="shortcut icon" href="{{ URL::to('/') }}/images/logo.png">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="{{ URL::to('/') }}/user/css/icons.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />

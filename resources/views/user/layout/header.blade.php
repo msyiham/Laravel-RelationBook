@@ -31,7 +31,7 @@
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                             <!-- item-->
                             <div class="dropdown-item noti-title">
-                                <h5>Welcome</h5>
+                                <h5>Haloo</h5>
                             </div>
                             <a class="dropdown-item" href="/profile"><i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
                             <div class="dropdown-divider"></div>

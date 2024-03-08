@@ -36,7 +36,7 @@
                             @endphp
                             @foreach ($points as $key => $point)
                             @if ($point->indicator->aspect_id == $aspect->id)
-                                <tr class="{{ $colors[$indicatorCounter % count($colors)] }}">
+                                <tr>
                                     <th scope="row">{{ $indicatorCounter + 1 }}</th>
                                     <td class="">{{ $point->indicator->question }}</td>
                                     <td class="">

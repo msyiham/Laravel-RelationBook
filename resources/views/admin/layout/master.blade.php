@@ -47,7 +47,7 @@
                     <div class="text-center">
                         <!--<a href="index.html" class="logo"><i class="mdi mdi-assistant"></i>Zoter</a>-->
                         <a href="index.html" class="logo">
-                            <img src="{{ URL::to('/') }}/user/images/logo-black.png" alt="" class="logo-large">
+                            <img src="{{ URL::to('/') }}/images/Logo-Black.png" alt="" class="logo-large">
                         </a>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                             <li>
                                 <a href={{route('admin.indicator.index')}} class="waves-effect">
                                     <i class="fas fa-book"></i>
-                                    <span>Aspek Evaluasi</span>
+                                    <span>Aspek Perkembangan</span>
                                 </a>
                             </li>
                             <li>
@@ -119,7 +119,7 @@
                                     <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                                         <!-- item-->
                                         <div class="dropdown-item noti-title">
-                                            <h5>Welcome Admin</h5>
+                                            <h5>Halo Admin</h5>
                                         </div>
                                         <a class="dropdown-item" href="/profile"><i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
                                         <div class="dropdown-divider"></div>

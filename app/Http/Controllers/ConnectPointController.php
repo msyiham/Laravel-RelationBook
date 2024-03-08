@@ -73,24 +73,22 @@ class ConnectPointController extends Controller
     }
 
     public function store(Request $request)
-    {
-        //dd($request);
-        // $request->validate([
-        //     'questions.*' => 'required',
-        //     'date' => 'required',
-        //     'comment' => 'required',
-        //     'photos.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // validasi untuk foto
-        // ], [
-        //     'questions.*.required' => 'Kolom pertanyaan harus diisi.',
-        //     'date.required' => 'Tanggal harus diisi.',
-        //     'comment.required' => 'Komentar harus diisi.',
-        //     'photos.*.required' => 'Foto harus diunggah.',
-        //     'photos.*.image' => 'Dokumentasi harus berupa gambar.',
-        //     'photos.*.mimes' => 'Dokumentasi harus berformat jpeg, png, jpg, atau gif.',
-        //     'photos.*.max' => 'Ukuran maksimum untuk setiap foto adalah 2048 kilobita.',
-        // ]);        
-        //dd($request);
+    {    
+        // Validasi input
+        $request->validate([
+            'user_id' => 'required|numeric', // Menjadi tipe numerik
+            'date' => 'required|date', // Menggunakan format tanggal
+            'aspect_id' => 'required|array',
+            'comment' => 'required|string|max:255', // Menentukan panjang minimum dan maksimum
+        ], [
+            'date.required' => 'Tanggal harus diisi.',
+            'comment.required' => 'Komentar harus diisi.',
+            'comment.string' => 'Komentar harus berupa teks.',
+            'comment.min' => 'Komentar minimal harus mengandung :min karakter.',
+            'comment.max' => 'Komentar maksimal harus mengandung :max karakter.'
+        ]);
         
+    
         DB::beginTransaction();
         
         try {
@@ -109,35 +107,37 @@ class ConnectPointController extends Controller
                         'connect_id' => $connectPoint->id,
                     ]);
                 }
+            } else {
+                // Jika foto tidak diunggah, kembalikan pesan error
+                DB::rollBack();
+                return redirect()->back()->withErrors(['error' => 'Lengkapi isian indikator'])->withInput();
             }
-
-            
+    
             // Simpan evaluasi untuk setiap aspek
-            //$photos = $request->file('photos'); // Gunakan file() untuk mendapatkan file foto dari request
-
             $aspect_ids = $request->aspect_id;
             $userId = $request->user_id;
             $date = $request->date;
-        
+            $atLeastOne = false;
             foreach ($aspect_ids as $index => $aspect_id) {
                 $file = $request->file("photos_$index");
-
+    
                 if ($file) {
                     $imageName = $date . '_aspect_' . $aspect_id . '.' . $file->getClientOriginalExtension();
                     $filePath = $file->storeAs('photo', $imageName, 'public');
+                    $atLeastOne = true;
 
                     $evaluation = new Evaluation();
                     $evaluation->connect_point_id = $connectPoint->id;
                     $evaluation->aspect_id = $aspect_id;
                     $evaluation->photo = $filePath;
                     $evaluation->save();
-                }else{
-                    dd("wadhuh");
+                } 
+                else if (!$atLeastOne) {
+                    DB::rollBack();
+                    return redirect()->back()->withErrors(['error' => 'Foto harus diunggah.'])->withInput();
                 }
-                
             }
-
-            
+    
             // Simpan komentar
             Comment::create([
                 'connect_id' => $connectPoint->id,
@@ -148,16 +148,14 @@ class ConnectPointController extends Controller
             
             // Commit transaksi jika tidak ada kesalahan
             DB::commit();
-            //dd($request);
             return redirect()->route('teacher.dashboard')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
-            //dd($request);
-            dd($e);
             DB::rollBack();
-            
-            //return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan. Data gagal disimpan.');
+            //dd($e);
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan. Data gagal disimpan.');
         }
     }
+    
 
     
     
